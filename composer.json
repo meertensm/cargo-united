@@ -1,0 +1,25 @@
+{
+    "name": "mcs/cargo-united",
+    "description": "Library to interface with the Cargo-United api",
+    "license": "MIT",
+    "keywords": ["cargo-united", "cargo united", "mws"],
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Michiel Meertens",
+            "email": "meertensmichiel28@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">= 5.4",
+        "filp/whoops": "^2.1",
+        "guzzlehttp/guzzle": "~6.0",
+        "symfony/var-dumper": "^3.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "MCS\\": "src"
+        }
+    }
+}
