@@ -1,4 +1,5 @@
-<?php namespace MCS;
+<?php 
+namespace MCS;
 
 use DateTime;
 use DateTimeZone;
@@ -19,8 +20,14 @@ class CargoUnitedClient{
     private $APIkey = '';
     
     private $required_shipment_parameters = [
-        'Type', 'Referentie', 'Naam', 'Straat', 'Postcode',
-        'Plaats', 'AantalPakketten', 'Gewicht'
+        'Type', 
+        'Referentie', 
+        'Naam', 
+        'Straat', 
+        'Postcode',
+        'Plaats', 
+        'AantalPakketten',
+        'Gewicht'
     ];
     
     /**
@@ -29,7 +36,7 @@ class CargoUnitedClient{
      */
     public function __construct($GebruikerID, $APIkey)
     {
-        if((!$GebruikerID) or (!$APIkey)){
+        if ((!$GebruikerID) or (!$APIkey)) {
             throw new Exception('Either `GebruikerID` or `APIkey` not set!');    
         }
         
@@ -50,15 +57,14 @@ class CargoUnitedClient{
         
         $string_to_hash = $this->GebruikerID . $date;
         
-        if(isset($array['Referentie'])){
+        if (isset($array['Referentie'])) {
             $add_to_hash = ['Postcode'];
-        }
-        else{
+        } else {
             $add_to_hash = ['Postcode', 'Nummer', 'Straat'];    
         }
         
-        foreach($add_to_hash as $key){
-            if(isset($array[$key])){
+        foreach ($add_to_hash as $key) {
+            if (isset($array[$key])) {
                 $string_to_hash .= $array[$key];
             }
         }
@@ -97,19 +103,17 @@ class CargoUnitedClient{
             
             $body = json_decode($response, true);
             
-            if(is_array($body)){
+            if (is_array($body)) {
                 return $body;    
             }
             
             return (string) $response;
             
-        }
-        catch(BadResponseException $e){
-            if ($e->hasResponse()){
+        } catch(BadResponseException $e) {
+            if ($e->hasResponse()) {
                 $response = $e->getResponse();
                 $message = $response->getBody()->getContents();
-            }
-            else{
+            } else {
                 $message = 'An error occured';    
             }
             throw new Exception($message);
@@ -158,8 +162,8 @@ class CargoUnitedClient{
      */
     public function createShipment(array $array)
     {
-        foreach($this->required_shipment_parameters as $required_parameter){
-            if(!isset($array[$required_parameter])){
+        foreach ($this->required_shipment_parameters as $required_parameter) {
+            if (!isset($array[$required_parameter])) {
                 throw new Exception('Required parameter `' . $required_parameter . '` not set');    
             }
         }
